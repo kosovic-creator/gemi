@@ -7,7 +7,7 @@ async function UserNav() {
 
   return (
     <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex bg-white p-8 rounded-xl shadow-md">
-      <h1 className="text-2xl font-bold text-gray-900 mb-4 lg:mb-0">Gemi</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-4 lg:mb-0">Dobrodošli u Gemi</h1>
       {session?.user ? (
         <div className="flex items-center gap-4">
           <span className="text-gray-700">Prijavljeni ste kao: <strong>{session.user.email}</strong></span>
