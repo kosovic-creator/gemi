@@ -19,7 +19,7 @@ export async function registerUser(formData: FormData) {
   })
 
   if (existingUser) {
-    return { error: "Korisnik sa ovim email-om već postoji." }
+    return { error: "Korisnik sa ovim email-om ve─ç postoji." }
   }
 
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -32,7 +32,7 @@ export async function registerUser(formData: FormData) {
     },
   })
 
-  return { success: "Uspešna registracija! Možete se prijaviti." }
+  return { success: "Uspe┼ína registracija! Mo┼╛ete se prijaviti." }
 }
 
 export async function loginUser(formData: FormData) {
@@ -49,9 +49,9 @@ export async function loginUser(formData: FormData) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Pogrešan email ili lozinka." }
+          return { error: "Pogre┼ían email ili lozinka." }
         default:
-          return { error: "Došlo je do greške." }
+          return { error: "Do┼ílo je do gre┼íke." }
       }
     }
     throw error

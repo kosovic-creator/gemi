@@ -26,7 +26,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md rounded-2xl border border-slate-200/80 bg-white p-8 shadow-xl shadow-slate-100">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dobrodošli nazad</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dobrodo┼íli nazad</h1>
           <p className="text-sm text-slate-500">Unesite svoje podatke za prijavu na nalog</p>
         </div>
 
@@ -59,7 +59,7 @@ export default function LoginPage() {
                 name="password"
                 type="password"
                 required
-                placeholder="••••••••"
+                placeholder="ΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇó"
                 className="flex h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20 transition-all shadow-sm"
               />
             </div>
