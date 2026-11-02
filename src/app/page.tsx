@@ -2,8 +2,10 @@ import { auth, signOut } from "@/auth"
 import Link from "next/link"
 import { Suspense } from "react"
 import { InstallButton } from "@/components/InstallButton"
+import { connection } from "next/server"
 
 async function UserNav() {
+  await connection()
   const session = await auth()
 
   return (
@@ -58,6 +60,7 @@ export default function Home() {
     </main>
   )
 }
+
 
 
 
