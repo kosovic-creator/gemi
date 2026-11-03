@@ -6,7 +6,7 @@ async function UserNav() {
   const session = await auth()
 
   return (
-    <div className="z-10 w-full max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between font-mono text-sm bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-100 gap-6">
+    <div className="z-10 w-full max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between font-mono text-sm bg-white/95 backdrop-blur-xl p-6 sm:p-8 rounded-2xl shadow-2xl shadow-black/40 border border-white/20 gap-6">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center sm:text-left tracking-tight">Dobrodošli u Gemi</h1>
       {session?.user ? (
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -48,8 +48,12 @@ async function UserNav() {
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 bg-gradient-to-br from-slate-50 to-slate-100">
-      <Suspense fallback={<div className="text-slate-500 font-medium">Učitavanje...</div>}>
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-4 sm:p-8 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900">
+      {/* Ambijentalno osvetljenje */}
+      <div className="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl" />
+
+      <Suspense fallback={<div className="text-slate-300 font-medium">Učitavanje...</div>}>
         <UserNav />
       </Suspense>
     </main>
