@@ -2,16 +2,21 @@
 
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
-import { signIn } from "@/auth"
+import { signIn, signOut } from "@/auth"
 import { AuthError } from "next-auth"
+import { Locale } from "@/lib/i18n/translations"
 
-export async function registerUser(formData: FormData) {
+export async function registerUser(formData: FormData, preferredLocale?: Locale) {
   const name = formData.get("name") as string
   const email = formData.get("email") as string
   const password = formData.get("password") as string
+  const locale = preferredLocale || (formData.get("locale") as Locale) || "sr"
 
   if (!email || !password) {
-    return { error: "Email i lozinka su obavezni." }
+    return {
+      errorKey: "errorRequiredFields" as const,
+      error: locale === "en" ? "Email and password are required." : "Email i lozinka su obavezni.",
+    }
   }
 
   const existingUser = await prisma.user.findUnique({
@@ -19,7 +24,10 @@ export async function registerUser(formData: FormData) {
   })
 
   if (existingUser) {
-    return { error: "Korisnik sa ovim email-om već postoji." }
+    return {
+      errorKey: "errorUserExists" as const,
+      error: locale === "en" ? "A user with this email already exists." : "Korisnik sa ovim email-om već postoji.",
+    }
   }
 
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -32,12 +40,16 @@ export async function registerUser(formData: FormData) {
     },
   })
 
-  return { success: "Uspešna registracija! Možete se prijaviti." }
+  return {
+    successKey: "successRegister" as const,
+    success: locale === "en" ? "Registration successful! You can now sign in." : "Uspešna registracija! Možete se prijaviti.",
+  }
 }
 
-export async function loginUser(formData: FormData) {
+export async function loginUser(formData: FormData, preferredLocale?: Locale) {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
+  const locale = preferredLocale || (formData.get("locale") as Locale) || "sr"
 
   try {
     await signIn("credentials", {
@@ -49,11 +61,22 @@ export async function loginUser(formData: FormData) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Pogrešan email ili lozinka." }
+          return {
+            errorKey: "errorInvalidCredentials" as const,
+            error: locale === "en" ? "Invalid email or password." : "Pogrešan email ili lozinka.",
+          }
         default:
-          return { error: "Došlo je do greške." }
+          return {
+            errorKey: "errorGeneric" as const,
+            error: locale === "en" ? "An error occurred." : "Došlo je do greške.",
+          }
       }
     }
     throw error
   }
 }
+
+export async function logoutUser() {
+  await signOut({ redirectTo: "/" })
+}
+
