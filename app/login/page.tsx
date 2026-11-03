@@ -5,6 +5,7 @@ import { loginUser } from "@/app/actions"
 import Link from "next/link"
 import { useLanguage } from "@/lib/i18n/context"
 import { TranslationKey } from "@/lib/i18n/translations"
+import { PasswordField } from "@/components/PasswordField"
 
 export default function LoginPage() {
   const { t, locale } = useLanguage()
@@ -66,18 +67,7 @@ export default function LoginPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
-                {t.passwordLabel}
-              </label>
-              <input
-                name="password"
-                type="password"
-                required
-                placeholder={t.passwordPlaceholder}
-                className="flex h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20 transition-all shadow-sm"
-              />
-            </div>
+            <PasswordField />
           </div>
 
           <button
