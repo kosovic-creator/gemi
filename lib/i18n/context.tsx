@@ -15,14 +15,20 @@ function getSnapshot(): Locale {
   if (typeof window === "undefined") {
     return defaultLocale
   }
-  const stored = localStorage.getItem("locale") as Locale
-  if (stored === "sr" || stored === "en") {
-    return stored
+  const stored = localStorage.getItem("locale")
+  if (stored === "mn" || stored === "en") {
+    return stored as Locale
+  }
+  if (stored === "sr" || stored === "me") {
+    return "mn"
   }
   const cookieMatch = document.cookie.match(/(?:^|;\s*)locale=([^;]*)/)
-  const cookieLocale = cookieMatch ? (cookieMatch[1] as Locale) : null
-  if (cookieLocale === "sr" || cookieLocale === "en") {
-    return cookieLocale
+  const cookieLocale = cookieMatch ? cookieMatch[1] : null
+  if (cookieLocale === "mn" || cookieLocale === "en") {
+    return cookieLocale as Locale
+  }
+  if (cookieLocale === "sr" || cookieLocale === "me") {
+    return "mn"
   }
   return defaultLocale
 }

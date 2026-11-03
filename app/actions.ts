@@ -10,7 +10,7 @@ export async function registerUser(formData: FormData, preferredLocale?: Locale)
   const name = formData.get("name") as string
   const email = formData.get("email") as string
   const password = formData.get("password") as string
-  const locale = preferredLocale || (formData.get("locale") as Locale) || "sr"
+  const locale = preferredLocale || (formData.get("locale") as Locale) || "mn"
 
   if (!email || !password) {
     return {
@@ -49,7 +49,7 @@ export async function registerUser(formData: FormData, preferredLocale?: Locale)
 export async function loginUser(formData: FormData, preferredLocale?: Locale) {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
-  const locale = preferredLocale || (formData.get("locale") as Locale) || "sr"
+  const locale = preferredLocale || (formData.get("locale") as Locale) || "mn"
 
   try {
     await signIn("credentials", {

@@ -1,14 +1,14 @@
-export type Locale = "sr" | "en"
+export type Locale = "mn" | "en"
 
-export const defaultLocale: Locale = "sr"
+export const defaultLocale: Locale = "mn"
 
 export const translations = {
-  sr: {
+  mn: {
     // Navigacija & Opšte
     appTitle: "Gemi - Početna",
     appDescription: "Moderna aplikacija sa autentifikacijom i lokalizacijom",
     language: "Jezik",
-    serbian: "Srpski",
+    montenegrin: "Crnogorski",
     english: "Engleski",
     loading: "Učitavanje...",
 
@@ -55,7 +55,7 @@ export const translations = {
     appTitle: "Gemi - Home",
     appDescription: "Modern application with authentication and localization",
     language: "Language",
-    serbian: "Serbian",
+    montenegrin: "Montenegrin",
     english: "English",
     loading: "Loading...",
 
@@ -99,4 +99,5 @@ export const translations = {
   },
 } as const
 
-export type TranslationKey = keyof typeof translations.sr
+export type TranslationKey = keyof typeof translations.mn
+

@@ -13,25 +13,25 @@ export function LanguageSwitcher() {
     >
       <button
         type="button"
-        onClick={() => setLocale("sr")}
-        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
-          locale === "sr"
+        onClick={() => setLocale("mn")}
+        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+          locale === "mn"
             ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
             : "text-slate-300 hover:bg-white/10 hover:text-white"
         }`}
-        aria-pressed={locale === "sr"}
-        title={t.serbian}
+        aria-pressed={locale === "mn"}
+        title={t.montenegrin}
       >
-        <span className="text-sm leading-none" role="img" aria-label="Srbija">
-          🇷🇸
+        <span className="text-sm leading-none" role="img" aria-label="Crna Gora">
+          🇲🇪
         </span>
-        <span>SR</span>
+        <span>MN</span>
       </button>
 
       <button
         type="button"
         onClick={() => setLocale("en")}
-        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
+        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
           locale === "en"
             ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
             : "text-slate-300 hover:bg-white/10 hover:text-white"
@@ -47,3 +47,4 @@ export function LanguageSwitcher() {
     </div>
   )
 }
+
