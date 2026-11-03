@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useLanguage } from "@/lib/i18n/context"
 
 export function LanguageSwitcher() {
@@ -14,7 +15,7 @@ export function LanguageSwitcher() {
       <button
         type="button"
         onClick={() => setLocale("mn")}
-        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+        className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
           locale === "mn"
             ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
             : "text-slate-300 hover:bg-white/10 hover:text-white"
@@ -22,16 +23,21 @@ export function LanguageSwitcher() {
         aria-pressed={locale === "mn"}
         title={t.montenegrin}
       >
-        <span className="text-sm leading-none" role="img" aria-label="Crna Gora">
-          🇲🇪
-        </span>
+        <Image
+          src="/flags/mn.svg"
+          alt=""
+          width={20}
+          height={14}
+          className="h-3.5 w-5 rounded-[2px] object-cover shadow-xs shrink-0"
+          unoptimized
+        />
         <span>MN</span>
       </button>
 
       <button
         type="button"
         onClick={() => setLocale("en")}
-        className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+        className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
           locale === "en"
             ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
             : "text-slate-300 hover:bg-white/10 hover:text-white"
@@ -39,12 +45,18 @@ export function LanguageSwitcher() {
         aria-pressed={locale === "en"}
         title={t.english}
       >
-        <span className="text-sm leading-none" role="img" aria-label="English">
-          🇬🇧
-        </span>
+        <Image
+          src="/flags/en.svg"
+          alt=""
+          width={20}
+          height={14}
+          className="h-3.5 w-5 rounded-[2px] object-cover shadow-xs shrink-0"
+          unoptimized
+        />
         <span>EN</span>
       </button>
     </div>
   )
 }
+
 
