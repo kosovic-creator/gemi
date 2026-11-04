@@ -1,10 +1,10 @@
 import { auth } from "@/auth"
 import { Suspense } from "react"
-import { UserNav } from "@/components/UserNav"
+import { UserNavClient } from "@/components/UserNavClient"
 
-async function UserNavContainer() {
+async function UserNav() {
   const session = await auth()
-  return <UserNav user={session?.user} />
+  return <UserNavClient user={session?.user} />
 }
 
 export default function Home() {
@@ -15,11 +15,12 @@ export default function Home() {
       <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl" />
 
       <Suspense fallback={<div className="text-slate-300 font-medium animate-pulse">Učitavanje...</div>}>
-        <UserNavContainer />
+        <UserNav />
       </Suspense>
     </main>
   )
 }
+
 
 
 

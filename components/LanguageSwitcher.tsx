@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useLanguage } from "@/lib/i18n/context"
+import { useLanguage } from "@/lib/i18n/client"
 
 export function LanguageSwitcher() {
   const { locale, setLocale, t } = useLanguage()
@@ -9,7 +9,7 @@ export function LanguageSwitcher() {
   return (
     <div
       role="region"
-      aria-label={t.language}
+      aria-label={t("language")}
       className="fixed top-4 right-4 z-50 flex items-center gap-1 rounded-full border border-white/20 bg-slate-900/85 p-1.5 shadow-xl backdrop-blur-xl"
     >
       <button
@@ -21,7 +21,7 @@ export function LanguageSwitcher() {
             : "text-slate-300 hover:bg-white/10 hover:text-white"
         }`}
         aria-pressed={locale === "mn"}
-        title={t.montenegrin}
+        title={t("montenegrin")}
       >
         <Image
           src="/flags/mn.svg"
@@ -43,7 +43,7 @@ export function LanguageSwitcher() {
             : "text-slate-300 hover:bg-white/10 hover:text-white"
         }`}
         aria-pressed={locale === "en"}
-        title={t.english}
+        title={t("english")}
       >
         <Image
           src="/flags/en.svg"
@@ -58,5 +58,6 @@ export function LanguageSwitcher() {
     </div>
   )
 }
+
 
 

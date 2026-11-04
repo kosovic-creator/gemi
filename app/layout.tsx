@@ -1,6 +1,6 @@
-import { LanguageProvider } from "@/lib/i18n/context"
+import { LanguageProvider } from "@/lib/i18n/client"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
-import { defaultLocale } from "@/lib/i18n/translations"
+import { fallbackLng } from "@/lib/i18n/settings"
 import "./globals.css"
 
 export const metadata = {
@@ -14,9 +14,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang={defaultLocale} suppressHydrationWarning>
-      <body className="antialiased selection:bg-indigo-500 selection:text-white">
-        <LanguageProvider initialLocale={defaultLocale}>
+    <html lang={fallbackLng} suppressHydrationWarning>
+      <body className="antialiased selection:bg-indigo-500 selection:text-white" suppressHydrationWarning>
+        <LanguageProvider initialLocale={fallbackLng}>
           <LanguageSwitcher />
           {children}
         </LanguageProvider>
@@ -24,5 +24,8 @@ export default function RootLayout({
     </html>
   )
 }
+
+
+
 
 

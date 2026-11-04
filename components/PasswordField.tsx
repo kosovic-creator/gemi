@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useLanguage } from "@/lib/i18n/context"
+import { useTranslation } from "@/lib/i18n/client"
 
 interface PasswordFieldProps {
   name?: string
@@ -19,10 +19,10 @@ export function PasswordField({
   autoComplete,
 }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false)
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
-  const fieldLabel = label ?? t.passwordLabel
-  const fieldPlaceholder = placeholder ?? t.passwordPlaceholder
+  const fieldLabel = label ?? t("passwordLabel")
+  const fieldPlaceholder = placeholder ?? t("passwordPlaceholder")
 
   return (
     <div>
@@ -42,8 +42,8 @@ export function PasswordField({
           type="button"
           onClick={() => setShowPassword(!showPassword)}
           className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none transition-colors p-1.5 rounded-md cursor-pointer"
-          title={showPassword ? t.hidePassword : t.showPassword}
-          aria-label={showPassword ? t.hidePassword : t.showPassword}
+          title={showPassword ? t("hidePassword") : t("showPassword")}
+          aria-label={showPassword ? t("hidePassword") : t("showPassword")}
         >
           {showPassword ? (
             <svg
@@ -86,3 +86,4 @@ export function PasswordField({
     </div>
   )
 }
+
