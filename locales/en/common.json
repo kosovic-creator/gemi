@@ -11,6 +11,7 @@
   "signOut": "Sign out",
   "signIn": "Sign in",
   "register": "Register",
+  "postpone": "Cancel",
 
   "loginTitle": "Gemi - Sign In",
   "welcomeBack": "Welcome back",
@@ -23,6 +24,7 @@
   "hidePassword": "Hide password",
   "signInButton": "Sign in",
   "signingIn": "Signing in...",
+  "postponeButton": "Cancel",
   "noAccount": "Don't have an account?",
   "signUpLink": "Sign up",
 

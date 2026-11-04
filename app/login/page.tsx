@@ -65,13 +65,22 @@ export default function LoginPage() {
             <PasswordField />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full h-11 rounded-lg bg-indigo-600 text-white font-medium text-sm shadow-md shadow-indigo-600/20 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-600/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
-          >
-            {loading ? t("signingIn") : t("signInButton")}
-          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full h-11 rounded-lg bg-indigo-600 text-white font-medium text-sm shadow-md shadow-indigo-600/20 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-600/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
+            >
+              {loading ? t("signingIn") : t("signInButton")}
+            </button>
+
+            <Link
+              href="/"
+              className="w-full h-11 rounded-lg bg-slate-100 text-slate-700 font-medium text-sm hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-slate-100 transition-all flex items-center justify-center border border-slate-200 cursor-pointer"
+            >
+              {t("postponeButton")}
+            </Link>
+          </div>
 
           <div className="text-center text-sm text-slate-500 pt-2">
             {t("noAccount")}{" "}

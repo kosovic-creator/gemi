@@ -11,6 +11,7 @@
   "signOut": "Odjavi se",
   "signIn": "Prijava",
   "register": "Registracija",
+  "postpone": "Odloži",
 
   "loginTitle": "Gemi - Prijava",
   "welcomeBack": "Dobrodošli nazad",
@@ -23,6 +24,7 @@
   "hidePassword": "Sakrij lozinku",
   "signInButton": "Prijavi se",
   "signingIn": "Prijavljivanje...",
+  "postponeButton": "Odloži",
   "noAccount": "Nemate nalog?",
   "signUpLink": "Registrujte se",
 
