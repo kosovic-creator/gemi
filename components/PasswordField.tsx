@@ -9,6 +9,7 @@ interface PasswordFieldProps {
   placeholder?: string
   required?: boolean
   autoComplete?: string
+  error?: string
 }
 
 export function PasswordField({
@@ -17,6 +18,7 @@ export function PasswordField({
   placeholder,
   required = true,
   autoComplete,
+  error,
 }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false)
   const { t } = useTranslation()
@@ -36,7 +38,11 @@ export function PasswordField({
           required={required}
           placeholder={fieldPlaceholder}
           autoComplete={autoComplete}
-          className="flex h-11 w-full rounded-lg border border-slate-300 bg-white pl-3.5 pr-11 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20 transition-all shadow-sm"
+          className={`flex h-11 w-full rounded-lg border ${
+            error
+              ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+              : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+          } bg-white pl-3.5 pr-11 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all shadow-sm`}
         />
         <button
           type="button"
@@ -83,6 +89,9 @@ export function PasswordField({
           )}
         </button>
       </div>
+      {error && (
+        <p className="mt-1.5 text-xs text-red-600 font-medium">{error}</p>
+      )}
     </div>
   )
 }

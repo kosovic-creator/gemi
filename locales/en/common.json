@@ -39,6 +39,11 @@
   "signInLink": "Sign in",
 
   "errorRequiredFields": "Email and password are required.",
+  "errorEmailRequired": "Email is required.",
+  "errorInvalidEmail": "Please enter a valid email address.",
+  "errorPasswordRequired": "Password is required.",
+  "errorPasswordTooShort": "Password must be at least 6 characters long.",
+  "errorNameTooShort": "Name must be at least 2 characters long.",
   "errorUserExists": "A user with this email already exists.",
   "errorInvalidCredentials": "Invalid email or password.",
   "errorGeneric": "An error occurred.",

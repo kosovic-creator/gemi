@@ -9,18 +9,23 @@ import { PasswordField } from "@/components/PasswordField"
 export default function LoginPage() {
   const { t, locale } = useLanguage()
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({})
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setLoading(true)
     setError(null)
+    setFieldErrors({})
 
     const formData = new FormData(event.currentTarget)
     const result = await loginUser(formData, locale)
 
     if (result && "errorKey" in result) {
       setError(t(result.errorKey))
+      if (result.fieldErrors) {
+        setFieldErrors(result.fieldErrors)
+      }
       setLoading(false)
     }
   }
@@ -41,7 +46,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit} noValidate>
           {error && (
             <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm font-medium text-red-600">
               {error}
@@ -58,11 +63,20 @@ export default function LoginPage() {
                 type="email"
                 required
                 placeholder={t("emailPlaceholder")}
-                className="flex h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20 transition-all shadow-sm"
+                className={`flex h-11 w-full rounded-lg border ${
+                  fieldErrors.email
+                    ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                    : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                } bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all shadow-sm`}
               />
+              {fieldErrors.email && (
+                <p className="mt-1.5 text-xs text-red-600 font-medium">
+                  {fieldErrors.email}
+                </p>
+              )}
             </div>
 
-            <PasswordField />
+            <PasswordField error={fieldErrors.password} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

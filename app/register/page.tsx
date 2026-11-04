@@ -10,6 +10,11 @@ import { PasswordField } from "@/components/PasswordField"
 export default function RegisterPage() {
   const { t, locale } = useLanguage()
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string
+    email?: string
+    password?: string
+  }>({})
   const [success, setSuccess] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -18,6 +23,7 @@ export default function RegisterPage() {
     event.preventDefault()
     setLoading(true)
     setError(null)
+    setFieldErrors({})
     setSuccess(null)
 
     const formData = new FormData(event.currentTarget)
@@ -25,6 +31,9 @@ export default function RegisterPage() {
 
     if (result && "errorKey" in result && result.errorKey) {
       setError(t(result.errorKey))
+      if (result.fieldErrors) {
+        setFieldErrors(result.fieldErrors)
+      }
       setLoading(false)
     } else if (result && "successKey" in result && result.successKey) {
       setSuccess(t(result.successKey))
@@ -51,7 +60,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit} noValidate>
           {error && (
             <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm font-medium text-red-600">
               {error}
@@ -72,8 +81,17 @@ export default function RegisterPage() {
                 name="name"
                 type="text"
                 placeholder={t("namePlaceholder")}
-                className="flex h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20 transition-all shadow-sm"
+                className={`flex h-11 w-full rounded-lg border ${
+                  fieldErrors.name
+                    ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                    : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                } bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all shadow-sm`}
               />
+              {fieldErrors.name && (
+                <p className="mt-1.5 text-xs text-red-600 font-medium">
+                  {fieldErrors.name}
+                </p>
+              )}
             </div>
 
             <div>
@@ -85,11 +103,20 @@ export default function RegisterPage() {
                 type="email"
                 required
                 placeholder={t("emailPlaceholder")}
-                className="flex h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20 transition-all shadow-sm"
+                className={`flex h-11 w-full rounded-lg border ${
+                  fieldErrors.email
+                    ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                    : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                } bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all shadow-sm`}
               />
+              {fieldErrors.email && (
+                <p className="mt-1.5 text-xs text-red-600 font-medium">
+                  {fieldErrors.email}
+                </p>
+              )}
             </div>
 
-            <PasswordField />
+            <PasswordField error={fieldErrors.password} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

@@ -39,6 +39,11 @@
   "signInLink": "Prijavite se",
 
   "errorRequiredFields": "Email i lozinka su obavezni.",
+  "errorEmailRequired": "Email je obavezan.",
+  "errorInvalidEmail": "Molimo unesite ispravnu email adresu.",
+  "errorPasswordRequired": "Lozinka je obavezna.",
+  "errorPasswordTooShort": "Lozinka mora imati najmanje 6 karaktera.",
+  "errorNameTooShort": "Ime mora imati najmanje 2 karaktera.",
   "errorUserExists": "Korisnik sa ovim email-om već postoji.",
   "errorInvalidCredentials": "Pogrešan email ili lozinka.",
   "errorGeneric": "Došlo je do greške.",
