@@ -1,8 +1,10 @@
 import { auth } from "@/auth"
 import { Suspense } from "react"
+import { connection } from "next/server"
 import { UserNavClient } from "@/components/UserNavClient"
 
 async function UserNav() {
+  await connection()
   const session = await auth()
   return <UserNavClient user={session?.user} />
 }
