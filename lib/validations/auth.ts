@@ -4,6 +4,7 @@ export const loginSchema = z.object({
   email: z
     .string()
     .trim()
+    .toLowerCase()
     .min(1, { message: "errorEmailRequired" })
     .email({ message: "errorInvalidEmail" }),
   password: z
@@ -23,6 +24,7 @@ export const registerSchema = z.object({
   email: z
     .string()
     .trim()
+    .toLowerCase()
     .min(1, { message: "errorEmailRequired" })
     .email({ message: "errorInvalidEmail" }),
   password: z

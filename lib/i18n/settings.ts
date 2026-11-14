@@ -3,6 +3,12 @@ export const languages = ["mn", "en"] as const
 export type Locale = (typeof languages)[number]
 export const defaultNS = "common"
 
+export function parseLocale(value: unknown): Locale {
+  return typeof value === "string" && languages.includes(value as Locale)
+    ? (value as Locale)
+    : fallbackLng
+}
+
 export function getOptions(lng: string = fallbackLng, ns: string = defaultNS) {
   return {
     supportedLngs: languages,

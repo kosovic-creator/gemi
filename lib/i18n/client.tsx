@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useEffect, useSyncExternalStore } from "react"
+import React, { createContext, useContext, useEffect, useSyncExternalStore } from "react"
 import i18next from "i18next"
 import { initReactI18next, I18nextProvider } from "react-i18next"
-import { getOptions, fallbackLng, defaultNS, Locale } from "./settings"
+import { getOptions, fallbackLng, defaultNS, Locale, parseLocale } from "./settings"
 import { resources, TranslationKey } from "./resources"
 
 if (!i18next.isInitialized) {
@@ -16,24 +16,13 @@ if (!i18next.isInitialized) {
   })
 }
 
-function getClientLocale(): Locale {
-  if (typeof window === "undefined") {
-    return fallbackLng
-  }
-  const stored = localStorage.getItem("locale")
-  if (stored === "mn" || stored === "en") {
-    return stored as Locale
-  }
-  const cookieMatch = document.cookie.match(/(?:^|;\s*)locale=([^;]*)/)
-  const cookieLocale = cookieMatch ? cookieMatch[1] : null
-  if (cookieLocale === "mn" || cookieLocale === "en") {
-    return cookieLocale as Locale
-  }
-  return fallbackLng
-}
+const LocaleContext = createContext<Locale>(fallbackLng)
 
-function getServerLocale(): Locale {
-  return fallbackLng
+function getClientLocale(): Locale {
+  if (typeof window === "undefined") return fallbackLng
+
+  const cookieMatch = document.cookie.match(/(?:^|;\s*)locale=([^;]*)/)
+  return parseLocale(cookieMatch?.[1])
 }
 
 function subscribe(callback: () => void) {
@@ -49,7 +38,8 @@ function subscribe(callback: () => void) {
 }
 
 export function useLanguage(ns = defaultNS) {
-  const locale = useSyncExternalStore(subscribe, getClientLocale, getServerLocale)
+  const initialLocale = useContext(LocaleContext)
+  const locale = useSyncExternalStore(subscribe, getClientLocale, () => initialLocale)
 
   useEffect(() => {
     if (i18next.language !== locale) {
@@ -59,7 +49,6 @@ export function useLanguage(ns = defaultNS) {
 
   const setLocale = (newLocale: Locale) => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("locale", newLocale)
       document.cookie = `locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`
       document.documentElement.lang = newLocale
       i18next.changeLanguage(newLocale)
@@ -94,11 +83,16 @@ export function useTranslation(ns = defaultNS) {
 
 export function LanguageProvider({
   children,
+  initialLocale = fallbackLng,
 }: {
   children: React.ReactNode
   initialLocale?: Locale
 }) {
-  return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+  return (
+    <LocaleContext.Provider value={initialLocale}>
+      <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+    </LocaleContext.Provider>
+  )
 }
 
 export { i18next, I18nextProvider }

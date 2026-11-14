@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useTranslation } from "@/lib/i18n/client"
 
 interface PasswordFieldProps {
+  id?: string
   name?: string
   label?: string
   placeholder?: string
@@ -13,6 +14,7 @@ interface PasswordFieldProps {
 }
 
 export function PasswordField({
+  id,
   name = "password",
   label,
   placeholder,
@@ -25,19 +27,24 @@ export function PasswordField({
 
   const fieldLabel = label ?? t("passwordLabel")
   const fieldPlaceholder = placeholder ?? t("passwordPlaceholder")
+  const inputId = id ?? `${name}-input`
+  const errorId = `${inputId}-error`
 
   return (
     <div>
-      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+      <label htmlFor={inputId} className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
         {fieldLabel}
       </label>
       <div className="relative">
         <input
+          id={inputId}
           name={name}
           type={showPassword ? "text" : "password"}
           required={required}
           placeholder={fieldPlaceholder}
           autoComplete={autoComplete}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : undefined}
           className={`flex h-11 w-full rounded-lg border ${
             error
               ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
@@ -90,7 +97,9 @@ export function PasswordField({
         </button>
       </div>
       {error && (
-        <p className="mt-1.5 text-xs text-red-600 font-medium">{error}</p>
+        <p id={errorId} className="mt-1.5 text-xs text-red-600 font-medium">
+          {error}
+        </p>
       )}
     </div>
   )

@@ -16,10 +16,7 @@ export function UserNavClient({ user }: UserNavClientProps) {
 
   return (
     <div className="z-10 w-full max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between font-mono text-sm bg-white/95 backdrop-blur-xl p-6 sm:p-8 rounded-2xl shadow-2xl shadow-black/40 border border-white/20 gap-6">
-      <h1
-        suppressHydrationWarning
-        className="text-2xl sm:text-3xl font-bold text-gray-900 text-center sm:text-left tracking-tight"
-      >
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center sm:text-left tracking-tight">
         {t("welcomeTitle")}
       </h1>
       {user ? (

@@ -7,7 +7,7 @@ import { useLanguage } from "@/lib/i18n/client"
 import { PasswordField } from "@/components/PasswordField"
 
 export default function LoginPage() {
-  const { t, locale } = useLanguage()
+  const { t } = useLanguage()
   const [error, setError] = useState<string | null>(null)
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({})
   const [loading, setLoading] = useState(false)
@@ -18,14 +18,22 @@ export default function LoginPage() {
     setError(null)
     setFieldErrors({})
 
-    const formData = new FormData(event.currentTarget)
-    const result = await loginUser(formData, locale)
+    try {
+      const formData = new FormData(event.currentTarget)
+      const result = await loginUser(formData)
 
-    if (result && "errorKey" in result) {
-      setError(t(result.errorKey))
-      if (result.fieldErrors) {
-        setFieldErrors(result.fieldErrors)
+      if (result.status === "error") {
+        setError(t(result.errorKey))
+        if (result.fieldErrors) {
+          setFieldErrors({
+            email: result.fieldErrors.email ? t(result.fieldErrors.email) : undefined,
+            password: result.fieldErrors.password ? t(result.fieldErrors.password) : undefined,
+          })
+        }
       }
+    } catch {
+      setError(t("errorGeneric"))
+    } finally {
       setLoading(false)
     }
   }
@@ -48,20 +56,24 @@ export default function LoginPage() {
 
         <form className="mt-8 space-y-5" onSubmit={handleSubmit} noValidate>
           {error && (
-            <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm font-medium text-red-600">
+            <div role="alert" className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm font-medium text-red-600">
               {error}
             </div>
           )}
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+              <label htmlFor="login-email" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
                 {t("emailLabel")}
               </label>
               <input
+                id="login-email"
                 name="email"
                 type="email"
                 required
+                autoComplete="email"
+                aria-invalid={Boolean(fieldErrors.email)}
+                aria-describedby={fieldErrors.email ? "login-email-error" : undefined}
                 placeholder={t("emailPlaceholder")}
                 className={`flex h-11 w-full rounded-lg border ${
                   fieldErrors.email
@@ -70,13 +82,13 @@ export default function LoginPage() {
                 } bg-white px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all shadow-sm`}
               />
               {fieldErrors.email && (
-                <p className="mt-1.5 text-xs text-red-600 font-medium">
+                <p id="login-email-error" className="mt-1.5 text-xs text-red-600 font-medium">
                   {fieldErrors.email}
                 </p>
               )}
             </div>
 
-            <PasswordField error={fieldErrors.password} />
+            <PasswordField id="login-password" autoComplete="current-password" error={fieldErrors.password} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
