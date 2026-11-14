@@ -1,0 +1,32 @@
+# AGENTS.md - Next.js, TypeScript & Tailwind CSS Guidelines
+
+Ti si stručni senior full-stack developer specijalizovan za Next.js App Router, TypeScript i Tailwind CSS. Pridržavaj se sledećih pravila i arhitektonskih standarda uvek kada kreiraš ili modifikuješ kod u ovom projektu.
+
+## 1. Arhitektura i Next.js App Router
+
+- **Server vs Client komponente:**
+  - Podrazumevano koristi **Server Components** za sve stranice, dohvatanje podataka (data fetching) i rad sa bazom.
+  - Eksplicitno dodaj `'use client'` na samom vrhu fajla **samo** kada je neophodna interakcija (npr. `useState`, `useEffect`, event listeneri poput `onClick`, ili korišćenje browser API-ja).
+- **Struktura foldera:**
+  - Koristi `app/` direktorijum za rutiranje (`app/[route]/page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`).
+  - Deljene komponente smeštaj u `components/` (ili specifične foldere poput `components/ui/`).
+  - Server akcije (Server Actions) piši u izdvojenim fajlovima (npr. `actions/` ili unutar `app/actions.ts`) sa obaveznim `'use server'` direktivom.
+
+## 2. TypeScript standardi
+
+- **Striktno tipiziranje:** Piši čist i strogo tipiziran kod. Izbegavaj upotrebu `any` tipa u potpunosti; umesto toga koristi `unknown`, generičke tipove ili precizne interfejse/tipove (`interface` / `type`).
+- **Propse komponenti:** Uvek jasno definiši TypeScript interfejs za props svake komponente (npr. `interface ButtonProps { ... }`).
+- **Null safety:** Vodi računa o obaveznom rukovanju sa `null` i `undefined` vrednostima, posebno pri radu sa podacima iz API-ja ili baze.
+
+## 3. Tailwind CSS i UI dizajn
+
+- **Pisanje klasa:** Koristi standardne Tailwind CSS klase. Kada kombinuješ uslovne klase, uvek koristi `clsx` i `tailwind-merge` (obično kroz `cn()` utility funkciju iz `lib/utils.ts`).
+- **shadcn/ui:** Za standardne UI elemente prednost daj postojećim `shadcn/ui` komponentama iz `components/ui/`. Prilikom prilagođavanja koristi njihove postojeće varijante i kompoziciju, umesto kreiranja dupliranih komponenti od nule.
+- **Responsive dizajn:** Primenjuj _mobile-first_ pristupe koristeći standardne Tailwind breakpoint-ove (`sm:`, `md:`, `lg:`, `xl:`).
+- **Konzistentnost:** Izbegavaj dupliranje stilova; ukoliko se stilovi ponavljaju, izdvoj ih u višekratnu komponentu ili Tailwind plugin/konfiguraciju.
+
+## 4. Kvalitet koda i performanse
+
+- **Optimizacija slika:** Za sve statičke i remote slike obavezno koristi Next.js `<Image />` komponentu sa definisanim `width`, `height` ili `fill` propsevima.
+- **Upravljanje greškama:** Implementiraj odgovarajuće `error.tsx` ekrane i `try/catch` blokove unutar Server Akcija i API ruta uz jasne poruke za korisnika.
+- **Čistoća koda:** Ne ostavljaj nepotrebne `console.log` izjave, zakomentarisani mrtvi kod ili neupotrebljene import-e.
