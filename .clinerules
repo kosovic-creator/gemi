@@ -55,6 +55,7 @@ Pravila iz postojećeg koda imaju prednost nad generičkim pravilima iz ovog dok
 - Za asinhrono učitavanje koristi `loading.tsx`, a za greške `error.tsx`.
 - Koristi `notFound()` kada traženi resurs ne postoji.
 - Za statične i udaljene slike koristi Next.js `<Image />` sa odgovarajućim `width`/`height` ili `fill` props-om.
+- pnpm kao package manager
 
 ## 2. Server Actions i mutacije
 
@@ -126,3 +127,7 @@ Pravila iz postojećeg koda imaju prednost nad generičkim pravilima iz ovog dok
 - Nakon izmene prevoda proveri da novi ključevi postoje u svim potrebnim locale fajlovima.
 - Nakon izmene zaštićenih ruta ili Server Actions proveri autentikaciju, autorizaciju i validaciju ulaza.
 - Ne uvodi nove biblioteke bez potrebe i bez provere postojećih rešenja u projektu.
+
+## Packet manager
+
+- pnpm kao package manager.

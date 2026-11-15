@@ -7,7 +7,7 @@ import "./globals.css"
 export const instant = false
 
 export const metadata = {
-  title: "Gemi",
+  title: "Gemini Codex",
   description: "Next.js Authentication and Localization App",
 }
 

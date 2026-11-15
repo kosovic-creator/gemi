@@ -1,19 +1,19 @@
 {
-  "appTitle": "Gemi - Početna",
+  "appTitle": "Gemini Codex - Početna",
   "appDescription": "Moderna aplikacija sa autentifikacijom i lokalizacijom",
   "language": "Jezik",
   "montenegrin": "Crnogorski",
   "english": "Engleski",
   "loading": "Učitavanje...",
 
-  "welcomeTitle": "Dobrodošli u Gemi",
+  "welcomeTitle": "Dobrodošli u Gemini Codex",
   "signedInAs": "Prijavljeni ste kao:",
   "signOut": "Odjavi se",
   "signIn": "Prijava",
   "register": "Registracija",
   "postpone": "Odloži",
 
-  "loginTitle": "Gemi - Prijava",
+  "loginTitle": "Gemini Codex - Prijava",
   "welcomeBack": "Dobrodošli nazad",
   "loginSubtitle": "Unesite svoje podatke za prijavu na nalog",
   "emailLabel": "Email adresa",
@@ -28,7 +28,7 @@
   "noAccount": "Nemate nalog?",
   "signUpLink": "Registrujte se",
 
-  "registerTitle": "Gemi - Registracija",
+  "registerTitle": "Gemini Codex - Registracija",
   "createAccount": "Kreirajte nalog",
   "registerSubtitle": "Unesite podatke da biste započeli",
   "nameLabel": "Ime i prezime",

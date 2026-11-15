@@ -1,7 +1,7 @@
 {
-  "name": "Gemi App",
-  "short_name": "Gemi",
-  "description": "Gemi Next.js PWA App",
+  "name": "Gemini Codex App",
+  "short_name": "Gemini Codex",
+  "description": "Gemini Codex Next.js PWA App",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

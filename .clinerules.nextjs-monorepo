@@ -135,3 +135,8 @@ Pravila iz postojećeg koda imaju prednost nad generičkim pravilima iz ovog dok
 - Nakon izmene prevoda proveri da novi ključevi postoje u svim potrebnim locale fajlovima.
 - Nakon izmene zaštićenih ruta ili Server Actions proveri autentikaciju, autorizaciju i validaciju ulaza.
 - Ne uvodi nove biblioteke bez potrebe i bez provere postojećih rešenja u projektu.
+
+
+## Packet manager
+
+- pnpm kao package manager.
