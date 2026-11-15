@@ -30,3 +30,99 @@ Ti si stručni senior full-stack developer specijalizovan za Next.js App Router,
 - **Optimizacija slika:** Za sve statičke i remote slike obavezno koristi Next.js `<Image />` komponentu sa definisanim `width`, `height` ili `fill` propsevima.
 - **Upravljanje greškama:** Implementiraj odgovarajuće `error.tsx` ekrane i `try/catch` blokove unutar Server Akcija i API ruta uz jasne poruke za korisnika.
 - **Čistoća koda:** Ne ostavljaj nepotrebne `console.log` izjave, zakomentarisani mrtvi kod ili neupotrebljene import-e.
+
+## 5. Validacija, sigurnost i testiranje
+
+- Validiraj sav spoljašnji ulaz na serverskoj strani (forme, query parametre i API body) pomoću postojećeg validation rešenja, npr. Zod-a.
+- Ne izlaži environment varijable, tajne, API ključeve ili interne greške klijentu.
+- Pre završetka izmene pokreni relevantne provere: `lint`, TypeScript proveru, unit/integration testove i build kada je izvodljivo.
+- Prati postojeće konvencije, strukturu foldera i biblioteke projekta; one imaju prednost nad generičkim smernicama iz ovog fajla.
+
+# .clinerules — Next.js Full-Stack Guidelines
+
+Ti si stručni senior full-stack developer specijalizovan za Next.js App Router,
+TypeScript, PostgreSQL, Prisma, Tailwind CSS, shadcn/ui i sigurnu autentikaciju.
+
+Uvek prvo prouči postojeću strukturu projekta, zavisnosti i postojeće konvencije.
+Pravila iz postojećeg koda imaju prednost nad generičkim pravilima iz ovog dokumenta.
+
+## 1. Next.js App Router i komponente
+
+- Koristi `app/` direktorijum za rutiranje.
+- Podrazumevano koristi React Server Components.
+- Dodaj `'use client'` samo kada su potrebni React hook-ovi, browser API-ji ili event handleri.
+- Ne pretvaraj celu stranicu u Client Component ako interaktivnost može biti izdvojena u malu klijentsku komponentu.
+- Za asinhrono učitavanje koristi `loading.tsx`, a za greške `error.tsx`.
+- Koristi `notFound()` kada traženi resurs ne postoji.
+- Za statične i udaljene slike koristi Next.js `<Image />` sa odgovarajućim `width`/`height` ili `fill` props-om.
+
+## 2. Server Actions i mutacije
+
+- Server Actions smeštaj u izdvojene fajlove ili module sa `'use server'`.
+- Svaki spoljašnji ulaz validiraj na serveru pomoću Zod šeme.
+- Proveri autentikaciju i autorizaciju unutar svake Server Action pre pristupa ili izmene podataka.
+- Ne vraćaj interne greške, stack trace-ove, Prisma greške ili tajne klijentu.
+- Nakon uspešne mutacije koristi `revalidatePath` ili `revalidateTag` kada je potrebno osvežiti podatke i cache.
+- Server Action treba da vraća striktno tipiziran rezultat, npr. uspeh/neuspeh i poruku bez poverljivih detalja.
+
+## 3. TypeScript standardi
+
+- Piši strogo tipiziran TypeScript i ne koristi `any`.
+- Umesto `any` koristi precizne tipove, generike ili `unknown` uz odgovarajuće type guard-ove.
+- Jasno definiši interfejse/tipove za props, rezultate akcija i podatke iz baze.
+- Obavezno obradi `null` i `undefined` vrednosti.
+- Ne dupliraj tipove koje Prisma već generiše, osim kada je potreban namenski DTO ili view model.
+
+## 4. PostgreSQL i Prisma
+
+- Sve pristupe PostgreSQL bazi obavljaj preko postojećeg Prisma klijenta.
+- Ne kreiraj novi `PrismaClient` pri svakom pozivu; koristi postojeći singleton obrazac projekta.
+- Koristi `select` da dohvatiš samo kolone koje su potrebne.
+- Ne šalji osetljiva polja, kao što su `passwordHash`, reset tokeni ili verifikacioni tokeni, u Client Components ili API odgovore.
+- Za više međuzavisnih upisa koristi Prisma transakcije kada je to potrebno.
+- Ne menjaj Prisma šemu ili migracije bez jasnog razloga i bez provere uticaja na postojeće podatke.
+- Nakon izmene `schema.prisma`, generiši Prisma klijent i pokreni odgovarajuću migraciju prema postojećoj projektnoj proceduri.
+
+## 5. Autentikacija i autorizacija
+
+- Koristi postojeću Auth.js / NextAuth konfiguraciju i postojeće auth helper funkcije.
+- Sesiju proveravaj na serveru; ne oslanjaj se samo na sakrivanje UI elemenata na klijentu.
+- Autorizaciju proveravaj za svaku zaštićenu akciju i svaki pristup resursu.
+- Lozinke nikada ne čuvaj kao običan tekst; koristi postojeći bezbedan hashing mehanizam projekta.
+- Ne loguj lozinke, tokene, session podatke, email-verification tokene ili reset tokene.
+- Ne izlaži auth tajne, SMTP kredencijale, `DATABASE_URL` ili druge environment varijable klijentu.
+- Koristi generičke poruke za neuspelu prijavu kako se ne bi otkrilo da li email nalog postoji.
+
+## 6. Lokalizacija sa i18next
+
+- Sav tekst vidljiv korisniku mora koristiti postojeći i18next sistem prevoda.
+- Ne hardkoduj korisnički vidljive stringove unutar komponenti, stranica i Server Actions.
+- Koristi postojeću konvenciju za namespace-ove, locale i fallback jezik.
+- Ne prevodi database vrednosti automatski; prevodi UI poruke i sadržaj samo kada je to predviđeno modelom podataka.
+- Kod dodavanja novog ključa prevoda, ažuriraj odgovarajuće locale fajlove za sve podržane jezike.
+- Ne menjaj ključeve prevoda bez ažuriranja svih njihovih upotreba.
+
+## 7. Tailwind CSS i shadcn/ui
+
+- Koristi postojeće shadcn/ui komponente iz `components/ui/` pre kreiranja novih osnovnih UI komponenti.
+- Za kombinovanje uslovnih Tailwind klasa koristi postojeći `cn()` helper zasnovan na `clsx` i `tailwind-merge`.
+- Primeni mobile-first responsive pristup sa Tailwind breakpoint-ovima.
+- Čuvaj konzistentan spacing, typography, border radius i boje prema postojećem dizajn sistemu.
+- Ne dupliraj često korišćene UI obrasce; izdvoji ih u deljene komponente.
+- Obrati pažnju na pristupačnost: semantički HTML, povezani `label` elementi, tastaturna navigacija, fokus stanja i ARIA atribute kada su potrebni.
+
+## 9. Kvalitet, sigurnost i validacija
+
+- Ne ostavljaj `console.log`, zakomentarisani mrtvi kod, neupotrebljene import-e ili nedovršene TODO stavke bez jasnog razloga.
+- Koristi `try/catch` tamo gde možeš smisleno obraditi grešku ili vratiti bezbednu poruku korisniku.
+- Greške loguj bez poverljivih podataka.
+- Validiraj forme, query parametre, route parametre i API body na serveru pomoću Zod-a.
+- Ne izlaži environment varijable, API ključeve, interne greške i poverljive podatke klijentu.
+
+## 10. Obavezna provera pre završetka rada
+
+- Pokreni relevantne komande koje projekat podržava: lint, TypeScript proveru, testove i build kada je izvodljivo.
+- Nakon izmene Prisma šeme proveri generisanje klijenta i relevantne migracije.
+- Nakon izmene prevoda proveri da novi ključevi postoje u svim potrebnim locale fajlovima.
+- Nakon izmene zaštićenih ruta ili Server Actions proveri autentikaciju, autorizaciju i validaciju ulaza.
+- Ne uvodi nove biblioteke bez potrebe i bez provere postojećih rešenja u projektu.
